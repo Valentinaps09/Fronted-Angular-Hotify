@@ -1,0 +1,331 @@
+/* filepath: c:\Users\Vsssos\my-app\src\app\pages\Index\index.css */
+:root {
+  --primary-green: #28a745;
+  --hover-green: #218838;
+  --text-light: #f8f9fa;
+  --text-dark: #343a40;
+}
+
+.index-wrapper {
+  background-color: #4a4a4a;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.index-wrapper::before {
+  content: "";
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background-image: url('https://images.unsplash.com/photo-1502252430442-aac78f397426?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  z-index: 0;
+}
+
+.navbar {
+  background-color: transparent !important;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+.navbar-brand-text {
+  color: var(--text-light);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.navbar-nav .nav-link {
+  color: var(--text-light) !important;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.navbar-nav .nav-link.active-link {
+  border-bottom: 2px solid var(--text-light);
+}
+
+.nav-actions a, .nav-actions .profile-icon {
+  color: var(--text-light);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.profile-icon {
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  border-radius: 1rem;
+}
+
+.dropdown-menu .dropdown-item {
+  color: var(--text-dark) !important;
+  cursor: pointer;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+.container {
+  position: relative;
+}
+
+.search-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 80px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  color: var(--text-light);
+}
+
+.search-bar-item {
+  cursor: pointer;
+  position: relative;
+}
+
+.search-input-field {
+  border: none;
+  width: 100%;
+  background-color: transparent;
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+.search-input-field::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.search-input-field:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 0.3rem;
+}
+
+.search-input-field[type="number"] {
+  width: 100%;
+}
+
+.search-button {
+  background-color: var(--primary-green);
+  border-color: var(--primary-green);
+}
+
+.search-button:hover {
+  background-color: var(--hover-green);
+  border-color: var(--hover-green);
+}
+
+.vr {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+h2 {
+  color: var(--text-light);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Overlay oscuro cuando calendario está abierto */
+.index-wrapper.calendar-open::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 900;
+  backdrop-filter: blur(2px);
+}
+
+/* Estilos del Calendario */
+.calendar-popup {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  min-width: 320px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+.btn-calendar {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+}
+
+.btn-calendar:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+.month-year {
+  font-weight: bold;
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.weekday {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.3rem;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-light);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.calendar-day:hover:not(:disabled) {
+  background-color: rgba(40, 167, 69, 0.6);
+  border-color: var(--primary-green);
+}
+
+.calendar-day:disabled {
+  opacity: 10;
+  cursor: not-allowed;
+}
+
+.calendar-day.empty {
+  background-color: transparent;
+  border: none;
+  cursor: default;
+}
+
+.card-hotel {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  color: var(--text-light);
+  height: 100%;
+  transition: transform 0.2s;
+}
+
+.card-hotel:hover {
+  transform: translateY(-5px);
+}
+
+.card-img-container {
+  position: relative;
+  padding-top: 75%;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.card-img-top-custom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-body-custom {
+  padding: 1rem;
+}
+
+.card-title-custom {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: var(--text-light);
+}
+
+.card-text-price {
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+}
+
+.card-text-rating {
+  color: var(--text-light);
+  margin-bottom: 0;
+}
+
+footer {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  text-shadow: 0 1px 2px rgba(10,12,15,12),;
+  position: relative;
+}
+
+small {
+  color: rgba(255, 255, 255, 0.7);
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.container.mt-5 {
+  position: relative; /* Ya lo tiene */
+  z-index: 1;         /* Ponlo en una capa baja */
+}
+
+footer {
+  position: relative; /* Ya lo tiene */
+  z-index: 1;         /* Ponlo en la misma capa baja */
+}
+
+
+/* 2. FUERZA A LA BARRA DE NAVEGACIÓN Y A LA BARRA DE BÚSQUEDA A ESTAR ENCIMA DEL OVERLAY */
+
+.navbar {
+  /* ...tus otros estilos de navbar... */
+  position: relative; /* Asegúrate que esté */
+  z-index: 950;     /* Por encima del overlay (900) */
+}
+
+.search-container {
+  /* ...tus otros estilos de search-container... */
+  position: relative; /* Súper importante */
+  z-index: 950;     /* Por encima del overlay (900) */
+}

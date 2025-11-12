@@ -1,0 +1,190 @@
+<div 
+  class="index-wrapper" 
+  (click)="closeCalendars()"
+  [ngClass]="{'calendar-open': showCheckInCalendar || showCheckOutCalendar}">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/">
+        <span class="navbar-brand-text">Hostify</span>
+      </a>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active-link" aria-current="page" routerLink="/">Alojamientos</a>
+          </li>
+        </ul>
+      </div>
+      <div class="d-flex align-items-center ms-auto nav-actions">
+        <a routerLink="/convertirse-anfitrion" class="me-4 d-none d-lg-block">Conviértete en anfitrión</a>
+        <div class="dropdown">
+          <i class="bi bi-person-circle profile-icon" data-bs-toggle="dropdown" aria-expanded="false"></i>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" routerLink="/mis-reservas">Mis reservas</a></li>
+            <li><a class="dropdown-item" routerLink="/configuracion-perfil">Configuración de perfil</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" (click)="logout()">Cerrar sesión</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Barra de búsqueda -->
+  <div class="container my-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-11">
+        <div class="search-container">
+          <div class="d-flex align-items-center position-relative">
+            <div style="width: 35%;">
+              <small>Dónde</small>
+              <input 
+                type="text" 
+                class="search-input-field" 
+                placeholder="Explora destinos"
+                [(ngModel)]="searchFilters.destination">
+            </div>
+            <div class="vr mx-3"></div>
+            <div class="search-bar-item" style="width: 15%;" (click)="toggleCheckInCalendar(); $event.stopPropagation()">
+              <small>Check-in</small>
+              <div>{{ searchFilters.checkIn || 'Agrega fecha' }}</div>
+              
+              <!-- Calendario Check-in -->
+              <div class="calendar-popup" *ngIf="showCheckInCalendar" (click)="$event.stopPropagation()">
+                <div class="calendar-header">
+                  <button class="btn-calendar" (click)="previousMonth()">←</button>
+                  <span class="month-year">{{ currentCalendarMonth | date:'MMMM yyyy' }}</span>
+                  <button class="btn-calendar" (click)="nextMonth()">→</button>
+                </div>
+                <div class="calendar-weekdays">
+                  <div class="weekday">Dom</div>
+                  <div class="weekday">Lun</div>
+                  <div class="weekday">Mar</div>
+                  <div class="weekday">Mié</div>
+                  <div class="weekday">Jue</div>
+                  <div class="weekday">Vie</div>
+                  <div class="weekday">Sab</div>
+                </div>
+                <div class="calendar-days">
+                  <button 
+                    *ngFor="let day of calendarDays" 
+                    class="calendar-day"
+                    [disabled]="!day"
+                    (click)="selectCheckInDate(day)"
+                    [class.empty]="!day">
+                    {{ day ? (day | date:'d') : '' }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="vr mx-3"></div>
+            <div class="search-bar-item" style="width: 15%;" (click)="toggleCheckOutCalendar(); $event.stopPropagation()">
+              <small>Check-out</small>
+              <div>{{ searchFilters.checkOut || 'Agrega fecha' }}</div>
+              
+              <!-- Calendario Check-out -->
+              <div class="calendar-popup" *ngIf="showCheckOutCalendar" (click)="$event.stopPropagation()">
+                <div class="calendar-header">
+                  <button class="btn-calendar" (click)="previousMonth()">←</button>
+                  <span class="month-year">{{ currentCalendarMonth | date:'MMMM yyyy' }}</span>
+                  <button class="btn-calendar" (click)="nextMonth()">→</button>
+                </div>
+                <div class="calendar-weekdays">
+                  <div class="weekday">Dom</div>
+                  <div class="weekday">Lun</div>
+                  <div class="weekday">Mar</div>
+                  <div class="weekday">Mié</div>
+                  <div class="weekday">Jue</div>
+                  <div class="weekday">Vie</div>
+                  <div class="weekday">Sab</div>
+                </div>
+                <div class="calendar-days">
+                  <button 
+                    *ngFor="let day of calendarDays" 
+                    class="calendar-day"
+                    [disabled]="!day"
+                    (click)="selectCheckOutDate(day)"
+                    [class.empty]="!day">
+                    {{ day ? (day | date:'d') : '' }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="vr mx-3"></div>
+            <div class="search-bar-item" style="width: 12%;">
+              <small>Quién</small>
+              <input 
+                type="number" 
+                class="search-input-field" 
+                [(ngModel)]="searchFilters.guests"
+                min="1"
+                max="20">
+            </div>
+            <div class="vr mx-3"></div>
+            <div style="width: 13%;">
+              <small>Precio</small>
+              <input 
+                type="text" 
+                class="search-input-field" 
+                placeholder="Máx. COP"
+                [(ngModel)]="searchFilters.maxPrice">
+            </div>
+            <div class="flex-grow-1 text-end">
+              <button 
+                class="btn search-button rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
+                (click)="searchAccommodations()">
+                <i class="bi bi-search text-white fs-5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de alojamientos -->
+  <div class="container mt-5">
+    <h2 class="mb-4">{{ pageTitle }}</h2>
+    
+    <div *ngIf="loading" class="text-center">
+      <div class="spinner-border text-light" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+
+    <div *ngIf="!loading && accommodations.length === 0" class="text-center">
+      <p class="text-light">No se encontraron alojamientos disponibles.</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+      <div class="col" *ngFor="let accommodation of accommodations">
+        <a [routerLink]="['/detalle-alojamiento', accommodation.id]" class="text-decoration-none">
+          <div class="card card-hotel">
+            <div class="card-img-container">
+              <img 
+                [src]="accommodation.imageUrl || 'assets/images/placeholder-hotel.jpg'" 
+                [alt]="accommodation.title"
+                class="card-img-top-custom"
+                (error)="onImageError($event)">
+            </div>
+            <div class="card-body-custom">
+              <h5 class="card-title-custom">{{ accommodation.title }}</h5>
+              <p class="card-text-price">{{ accommodation.pricePerNight | currency:'COP':'symbol-narrow':'1.0-0' }} por noche</p>
+              <p class="card-text-rating">
+                ★ {{ accommodation.rating || 'N/A' }} 
+                <span *ngIf="accommodation.reviewsCount">({{ accommodation.reviewsCount }})</span>
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-5 mt-5">
+    <div class="container text-center">
+      <p class="mb-0">&copy; 2025 Hostify. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</div>
